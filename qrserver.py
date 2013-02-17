@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 from flask import Flask, request, render_template, send_file
 from qrcode import QRCode, ERROR_CORRECT_L
@@ -16,12 +16,7 @@ def qr_data(data):
 @app.route('/qr/', methods=['GET', 'POST'])
 def qr():
     if len(request.values) > 0 and request.values['data']:
-        data = request.values['data']
-
-        if request.method == 'POST':
-            print 'POST data is', data
-
-        return generate_qr_and_send_file(data)
+        return generate_qr_and_send_file(request.values['data'])
 
     return render_template('qr.html')
 
